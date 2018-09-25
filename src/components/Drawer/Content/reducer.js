@@ -27,7 +27,7 @@ INITIAL_STATE = {
 const setLoanAmount = (state, {payload}) => {
   let loanAmount = payload.value;
   let monthlyPayment = calculatePayment({...state, loanAmount});
-  let amortization = amortify({...state, loanAmount, monthlyPayment});
+  let amortization = amortify({...state, clear: true, loanAmount, monthlyPayment});
   let amortizationExtra = amortifyWithExtra({...state, loanAmount, monthlyPayment});
 
   localStorage.setItem('loanAmount', payload.value);
@@ -45,7 +45,7 @@ const setLoanAmount = (state, {payload}) => {
 const setAPR = (state, {payload}) => {
   let apr = payload.value;
   let monthlyPayment = calculatePayment({...state, apr});
-  let amortization = amortify({...state, apr, monthlyPayment});
+  let amortization = amortify({...state, apr, clear: true, monthlyPayment});
   let amortizationExtra = amortifyWithExtra({...state, apr, monthlyPayment});
 
   localStorage.setItem('apr', payload.value);
@@ -63,7 +63,7 @@ const setAPR = (state, {payload}) => {
 const setTerm = (state, {payload}) => {
   let term = payload.value;
   let monthlyPayment = calculatePayment({...state, term});
-  let amortization = amortify({...state, monthlyPayment, term});
+  let amortization = amortify({...state, clear: true, monthlyPayment, term});
   let amortizationExtra = amortifyWithExtra({...state, monthlyPayment, term});
 
   localStorage.setItem('term', payload.value);
