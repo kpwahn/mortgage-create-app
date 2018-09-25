@@ -7,13 +7,17 @@ import Mortgage from './components/Mortgage';
 class App extends Component {
     render() {
         return (
-          <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Mortgage} />
-            </Switch>
-          </BrowserRouter>
+          <Mortgage></Mortgage>
         );
     }
 }
 
 export default App;
+
+/*
+<BrowserRouter>
+  <Switch>
+      <Route exact path="/" component={Mortgage} />
+  </Switch>
+</BrowserRouter>
+*/
