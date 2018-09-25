@@ -7,24 +7,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import classNames from 'classnames';
 import {formatMoney} from 'accounting-js';
 import {openDrawer} from '../Drawer/actions';
 import styles from './styles';
 
 function AppBar(props) {
-  const { classes, mortgage, open } = props;
+  const { classes, mortgage} = props;
   let totalInterestSaved = mortgage.totalInterestPaid - mortgage.amortizationExtra[mortgage.amortizationExtra.length - 1].totalInterestPaid;
 
   return (
     <React.Fragment>
       <MaterialAppBar
-        className={
-          classNames(
-            classes.MaterialAppBar, {
-            [classes.MaterialAppBarShift]: open
-          })
-        }
+        className={classes.MaterialAppBar}
         position="static"
       >
         <Toolbar variant="dense" className={classes.Toolbar} classes={{root: classes.root}}>
@@ -32,9 +26,6 @@ function AppBar(props) {
             <IconButton
                 color="inherit"
                 onClick={props.openDrawer}
-                className={
-                  classNames({[classes.hide]: open})
-                }
             >
               <MenuIcon />
             </IconButton>
@@ -80,8 +71,7 @@ AppBar.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  mortgage: state.mortgage,
-  open: state.drawer.open
+  mortgage: state.mortgage
 });
 
 export default connect(mapStateToProps, {openDrawer})(withStyles(styles)(AppBar));

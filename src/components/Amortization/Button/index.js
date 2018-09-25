@@ -21,6 +21,7 @@ class Button extends React.Component {
   }
 
   handleClickOpen = () => {
+    this.setState({extra: localStorage.getItem(this.props.data.index) || 0})
     this.setState({ open: true });
   };
 

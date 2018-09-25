@@ -28,12 +28,10 @@ class List extends React.Component {
     let {classes} = this.props;
     let {amortizationExtra} = this.props.mortgage;
 
-    let width = (this.props.open) ? window.outerWidth - 240: window.innerWidth;
-
     return (
       <WindowScroller>
         {
-          ({ height, isScrolling, onChildScroll, scrollTop }) => (
+          ({ height, isScrolling, onChildScroll, scrollTop, width }) => (
             <VirtualizedList
               amortizationExtra={amortizationExtra}
               className={classes.VirtualizedList}

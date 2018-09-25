@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import MaterialDrawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 import Content from './Content';
@@ -9,22 +9,19 @@ import {closeDrawer} from './actions';
 import styles from './styles';
 
 function Drawer(props) {
-  const {classes, closeDrawer, mortgage, open} = props;
+  const {closeDrawer, mortgage, open} = props;
 
   return (
       <React.Fragment>
-          <MaterialDrawer
-            variant="persistent"
-            open={open}
-            classes={{
-              docked: classes.MaterialDrawerDocked,
-              paper: classes.MaterialDrawer
-            }}
-          >
+        <SwipeableDrawer
+          open={open}
+          onClose={() => {}}
+          onOpen={() => {}}
+        >
             <Header onClose={closeDrawer} monthlyPayment={mortgage.monthlyPayment} />
             <Divider />
             <Content />
-          </MaterialDrawer>
+        </SwipeableDrawer>
       </React.Fragment>
   );
 }
