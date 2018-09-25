@@ -2,7 +2,7 @@ const handleDecimals = (num) => Math.round(num * 100) / 100
 
 const amortify = ({apr, clear, extra, loanAmount, monthlyPayment, term}) => {
   if(clear) localStorage.clear();
-  
+
   let rows = [];
 
   let totalInterestPaid = 0;
@@ -35,7 +35,7 @@ const amortify = ({apr, clear, extra, loanAmount, monthlyPayment, term}) => {
   return rows;
 };
 
-const amortifyWithExtra = ({amortizationWithExtra = [], apr, loanAmount, monthlyPayment, term}) => {
+const amortifyWithExtra = ({amortizationWithExtra = [], apr, loanAmount, monthlyPayment, remainingTerm, term}) => {
   let rows = [];
 
   let totalInterestPaid = 0;
@@ -67,6 +67,10 @@ const amortifyWithExtra = ({amortizationWithExtra = [], apr, loanAmount, monthly
         totalInterestPaid,
         totalPrincipalPaid
       });
+  }
+
+  for (let j = 0; j < termInMonths - remainingTerm; j++) {
+    rows.shift();
   }
 
   return rows;

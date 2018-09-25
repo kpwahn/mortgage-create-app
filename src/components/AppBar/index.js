@@ -13,7 +13,10 @@ import styles from './styles';
 
 function AppBar(props) {
   const { classes, mortgage} = props;
-  let totalInterestSaved = mortgage.totalInterestPaid - mortgage.amortizationExtra[mortgage.amortizationExtra.length - 1].totalInterestPaid;
+  let totalInterestSaved = 0;
+  if(mortgage.amortizationExtra[mortgage.amortizationExtra.length - 1]) {
+    totalInterestSaved = mortgage.totalInterestPaid - mortgage.amortizationExtra[mortgage.amortizationExtra.length - 1].totalInterestPaid;
+  }
 
   return (
     <React.Fragment>

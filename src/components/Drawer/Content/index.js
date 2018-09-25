@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
-import {setAPR, setLoanAmount, setTerm} from './actions';
+import {setAPR, setLoanAmount, setRemainingPrinciple, setRemainingTerm, setTerm} from './actions';
 
 class Content extends React.Component {
   constructor(props) {
@@ -12,6 +12,8 @@ class Content extends React.Component {
       this.actions = {
         apr: setAPR,
         loanAmount: setLoanAmount,
+        remainingPrinciple: setRemainingPrinciple,
+        remainingTerm: setRemainingTerm,
         term: setTerm
       };
 
@@ -27,7 +29,9 @@ class Content extends React.Component {
   }
 
   render() {
-    let {apr, loanAmount, term} = this.props.mortgage;
+    let {apr, loanAmount, remainingPrinciple, remainingTerm, term} = this.props.mortgage;
+    if (remainingTerm > term * 12) remainingTerm = term * 12;
+
     return (
       <List>
         <ListItem>
@@ -51,14 +55,34 @@ class Content extends React.Component {
           />
         </ListItem>
         <ListItem>
-        <TextField
-          id="term"
-          label="Term"
-          name="term"
-          onChange={this.handleChange}
-          type="number"
-          value={term}
-        />
+          <TextField
+            id="term"
+            label="Term"
+            name="term"
+            onChange={this.handleChange}
+            type="number"
+            value={term}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            id="remainingPrinciple"
+            label="Remaining Principle"
+            name="remainingPrinciple"
+            onChange={this.handleChange}
+            type="number"
+            value={remainingPrinciple}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            id="remainingTerm"
+            label="Remaining Term (in Months)"
+            name="remainingTerm"
+            onChange={this.handleChange}
+            type="number"
+            value={remainingTerm}
+          />
         </ListItem>
       </List>
     )

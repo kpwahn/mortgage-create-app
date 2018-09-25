@@ -8,6 +8,8 @@ let INITIAL_STATE = {
   apr: localStorage.getItem('apr') || 5,
   loanAmount: localStorage.getItem('loanAmount') || 300000,
   monthlyPayment: 0,
+  remainingPrinciple: localStorage.getItem('remainingPrinciple') || 300000,
+  remainingTerm: localStorage.getItem('remainingTerm') || 30 * 12,
   term: localStorage.getItem('term') || 30,
   totalInterestPaid: 0
 }
@@ -66,6 +68,10 @@ const setTerm = (state, {payload}) => {
   let amortization = amortify({...state, clear: true, monthlyPayment, term});
   let amortizationExtra = amortifyWithExtra({...state, monthlyPayment, term});
 
+  let totalInterestPaid = (amortization[amortization.length - 1]) ?
+    amortization[amortization.length - 1].totalInterestPaid
+    : 0;
+
   localStorage.setItem('term', payload.value);
 
   return {
@@ -74,7 +80,29 @@ const setTerm = (state, {payload}) => {
     amortizationExtra,
     monthlyPayment,
     term: payload.value,
-    totalInterestPaid: amortization[amortization.length - 1].totalInterestPaid
+    totalInterestPaid 
+  }
+}
+
+const setRemainingPrinciple = (state, {payload}) => {
+  let remainingPrinciple = payload.value;
+  let amortizationExtra = amortifyWithExtra({...state, loanAmount: remainingPrinciple});
+
+  return {
+    ...state,
+    amortizationExtra,
+    remainingPrinciple
+  }
+}
+
+const setRemainingTerm = (state, {payload}) => {
+  let remainingTerm = payload.value;
+  let amortizationExtra = amortifyWithExtra({...state, remainingTerm});
+
+  return {
+    ...state,
+    amortizationExtra,
+    remainingTerm
   }
 }
 
@@ -100,5 +128,7 @@ export default handleActions({
   SET_APR: (state, action) => setAPR(state, action),
   SET_EXTRA: (state, action) => setExtra(state, action),
   SET_LOAN_AMOUNT: (state, action) => setLoanAmount(state, action),
-  SET_TERM: (state, action) => setTerm(state, action)
+  SET_TERM: (state, action) => setTerm(state, action),
+  SET_REMAINING_PRINCIPLE: (state, action) => setRemainingPrinciple(state, action),
+  SET_REMAINING_TERM: (state, action) => setRemainingTerm(state, action)
 }, INITIAL_STATE);

@@ -20,9 +20,21 @@ const setExtra = createAction(
   ({index, value}) => ({index, value})
 );
 
+const setRemainingPrinciple = createAction(
+  'SET_REMAINING_PRINCIPLE',
+  ({index, value}) => ({index, value})
+);
+
+const setRemainingTerm = createAction(
+  'SET_REMAINING_TERM',
+  ({index, value}) => ({index, value})
+);
+
 export {
   setAPR,
   setExtra,
   setLoanAmount,
+  setRemainingPrinciple,
+  setRemainingTerm,
   setTerm
 };
