@@ -5,10 +5,10 @@ import {amortify, amortifyWithExtra} from './amortify';
 
 let INITIAL_STATE = {
   amortization: [],
-  apr: 5,
-  loanAmount: 300000,
+  apr: localStorage.getItem('apr') || 5,
+  loanAmount: localStorage.getItem('loanAmount') || 300000,
   monthlyPayment: 0,
-  term: 30,
+  term: localStorage.getItem('term') || 30,
   totalInterestPaid: 0
 }
 
@@ -30,6 +30,8 @@ const setLoanAmount = (state, {payload}) => {
   let amortization = amortify({...state, loanAmount, monthlyPayment});
   let amortizationExtra = amortifyWithExtra({...state, loanAmount, monthlyPayment});
 
+  localStorage.setItem('loanAmount', payload.value);
+
   return {
     ...state,
     amortization,
@@ -46,6 +48,8 @@ const setAPR = (state, {payload}) => {
   let amortization = amortify({...state, apr, monthlyPayment});
   let amortizationExtra = amortifyWithExtra({...state, apr, monthlyPayment});
 
+  localStorage.setItem('apr', payload.value);
+
   return {
     ...state,
     amortization,
@@ -61,6 +65,8 @@ const setTerm = (state, {payload}) => {
   let monthlyPayment = calculatePayment({...state, term});
   let amortization = amortify({...state, monthlyPayment, term});
   let amortizationExtra = amortifyWithExtra({...state, monthlyPayment, term});
+
+  localStorage.setItem('term', payload.value);
 
   return {
     ...state,
@@ -79,6 +85,8 @@ const setExtra = (state, {payload}) => {
 
   let first = _.take(state.amortizationExtra, index - 1);
   let last = _.takeRight(state.amortizationExtra, state.amortization.length - payload.index)
+
+  localStorage.setItem(index, value);
 
   let amortizationExtra = amortifyWithExtra({...state, amortizationWithExtra: [...first, obj, ...last]});
 

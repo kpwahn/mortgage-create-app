@@ -47,7 +47,7 @@ const amortifyWithExtra = ({amortizationWithExtra = [], apr, loanAmount, monthly
   for(let i = 1; i <= termInMonths; i++) {
     let extra = (amortizationWithExtra[i - 1]) ? amortizationWithExtra[i - 1].extra : 0;
     // If it's empty string set it to 0
-    extra = extra || 0;
+    extra = extra || localStorage.getItem(i) || 0;
 
     let interest = handleDecimals(remainingPrincipal * monthlyApr);
     let principal = handleDecimals( (monthlyPayment - interest) + parseFloat(extra));

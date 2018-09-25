@@ -14,6 +14,12 @@ class Button extends React.Component {
     extra: 0
   };
 
+  comonentDidMount() {
+    this.setState({
+      extra: localStorage.getItem(this.props.data.index) || 0
+    })
+  }
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };

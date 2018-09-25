@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import { BrowserRouter } from 'react-router-dom'
-import  {Switch, Route} from 'react-router';
 
 import Mortgage from './components/Mortgage';
 
@@ -15,6 +13,7 @@ class App extends Component {
 export default App;
 
 /*
+Implementing React Router with github pages takes some extra work
 <BrowserRouter>
   <Switch>
       <Route exact path="/" component={Mortgage} />
