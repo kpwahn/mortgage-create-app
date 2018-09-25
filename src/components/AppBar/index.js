@@ -19,7 +19,7 @@ function AppBar(props) {
     <React.Fragment>
       <MaterialAppBar
         className={classes.MaterialAppBar}
-        position="static"
+        position={'sticky'}
       >
         <Toolbar variant="dense" className={classes.Toolbar} classes={{root: classes.root}}>
           <div className={classes.left}>
